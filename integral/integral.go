@@ -10,7 +10,7 @@ type TrapezoidIntegrator struct {
 }
 
 func NewIntegrator(stp int, ll, ul float64, exp string) TrapezoidIntegrator {
-	return TrapezoidIntegrator{
+	return TrapezoidIntegrator {
 		steps:      stp,
 		expression: exp,
 		lowerLimit: ll,
@@ -20,9 +20,10 @@ func NewIntegrator(stp int, ll, ul float64, exp string) TrapezoidIntegrator {
 
 func (t TrapezoidIntegrator) Run() float64 { // return an error?
 	delta := (t.upperLimit - t.lowerLimit) / (float64(t.steps))
-	x := make([]float64, t.steps)
-	f_x := make([]float64, t.steps)
+	x := make([]float64, t.steps+1)
+	f_x := make([]float64, t.steps+1)
 	for i := 0; i <= t.steps; i++ {
+		//println(i, x[i])
 		if i > 0 {
 			x[i] = x[i-1] + delta
 		} else {
@@ -50,6 +51,7 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 		if err != nil { //FIXME: Need type assertions. Whats that?
 			panic("Panic: FATAL: Expression evaluation error")
 		}
+		// What's the concrete type implementing the interface? Below.
 		f_x[j] = temp.(float64) // type assert interface{} to float
 	}
 	// calculate the sum
