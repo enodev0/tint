@@ -48,8 +48,6 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 		// since the expectant variable name is hardcoded in.
 		// Refer to the README
 		// of the govaluate package for more information.
-		//Hence the cumbersome
-		// re-assignments, rather than all at a time.
 		parameter["x"] = x[j] // here we go.
 		temp, err := exp.Evaluate(parameter)
 		// the return type of exp.Evaluate() is interface{},
@@ -63,7 +61,7 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 	// calculate the sum
 	sum := 0.0
 	for index, elem := range f_x {
-		if index == 0 || index == t.steps { //see calculation on sheet
+		if index == 0 || index == t.steps {
 			sum = sum + elem
 		} else {
 			sum = sum + (2 * elem)

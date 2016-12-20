@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"flag"
-	"github.com/enodev0/integrate/integral"
+	"github.com/enodev0/tint/integral"
 )
 
 func main() {
@@ -13,10 +13,10 @@ func main() {
 	exp := flag.String("fn", "", "Function to integrate")
 
 	flag.Parse()
-	// a := integral.NewIntegrator(20, -1, 1, "(1-(x**3))**(1/2)")
+
 	fmt.Printf("\nIntegrating f(x) = %s from %0.2f to %0.2f in %d steps\n\n",
 		*exp, *ll, *ul, *n)
 	a := integral.NewIntegrator(*n, *ll, *ul, *exp)
 	b := a.Run()
-	fmt.Println("Result: ", b, "\n")
+	fmt.Printf("Result: %0.3f\n\n", b)
 }
