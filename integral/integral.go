@@ -36,7 +36,7 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 	//}
 	// allocating only one, since we would be re-assigning to the same parameter
 	parameter := make(map[string]interface{}, 1) // govaluate mandate
-	var err error
+	// var err error
 	for j := 0; j <= t.steps; j++ {
 		//FIXME: The variable name must be the same as that in the expression.
 		// Here, I'm choosing "x" since it is the most common.
@@ -50,7 +50,7 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 		if err != nil { //FIXME: Need type assertions. Whats that?
 			panic("Panic: FATAL: Expression evaluation error")
 		}
-		f_x[j] = float64(temp)
+		f_x[j] = temp.(float64) // type assert interface{} to float
 	}
 	// calculate the sum
 	sum := 0.0

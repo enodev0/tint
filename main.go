@@ -7,6 +7,6 @@ const DEFAULT_STEPS = 20
 
 func main() {
 	a := integral.NewIntegrator(DEFAULT_STEPS, -1, 1, "(1-(x**3))**(1/2)")
-	b, _ := a.Run()
+	b := a.Run()
 	fmt.Println(b)
 }
