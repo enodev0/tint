@@ -14,7 +14,9 @@ func main() {
 
 	flag.Parse()
 	// a := integral.NewIntegrator(20, -1, 1, "(1-(x**3))**(1/2)")
+	fmt.Printf("\nIntegrating f(x) = %s from %0.2f to %0.2f in %d steps\n\n",
+		*exp, *ll, *ul, *n)
 	a := integral.NewIntegrator(*n, *ll, *ul, *exp)
 	b := a.Run()
-	fmt.Println(b)
+	fmt.Println("Result: ", b, "\n")
 }
