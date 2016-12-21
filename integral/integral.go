@@ -92,22 +92,22 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 				return math.Tan(arg[0].(float64)*RAD), nil
 			},
 			"asin": func(arg ...interface{}) (interface{}, error) {
-				return math.Asin(arg[0].(float64)*RAD), nil
+				return math.Asin(arg[0].(float64)*DEG), nil
 			},
 			"acos": func(arg ...interface{}) (interface{}, error) {
-				return math.Acos(arg[0].(float64)*RAD), nil
+				return math.Acos(arg[0].(float64)*DEG), nil
 			},
 			"atan": func(arg ...interface{}) (interface{}, error) {
-				return math.Atan(arg[0].(float64)*RAD), nil
+				return math.Atan(arg[0].(float64)*DEG), nil
 			},
 			"sinh": func(arg ...interface{}) (interface{}, error) {
-				return math.Sinh(arg[0].(float64)*RAD), nil
+				return math.Sinh(arg[0].(float64)), nil
 			},
 			"cosh": func(arg ...interface{}) (interface{}, error) {
-				return math.Cosh(arg[0].(float64)*RAD), nil
+				return math.Cosh(arg[0].(float64)), nil
 			},
 			"tanh": func(arg ...interface{}) (interface{}, error) {
-				return math.Tanh(arg[0].(float64)*RAD), nil
+				return math.Tanh(arg[0].(float64)), nil
 			},
 			"sqrt": func(arg ...interface{}) (interface{}, error) {
 				return math.Sqrt(arg[0].(float64)), nil
