@@ -77,51 +77,51 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 
 	if t.stringHasFunctions() {
 	
-		functions := map[string]govaluate.ExpressionFunction{
-			"log": func(arg float64) float64 {
-				return math.Log10(arg)
+		functions := map[string]govaluate.ExpressionFunction {
+			"log": func(arg ...interface{}) (interface{}, error) {
+				return math.Log10(arg[0].(float64)), nil
 			},
-			"ln": func(arg float64) float64 {
-				return math.Log(arg)
+			"ln": func(arg ...interface{}) (interface{}, error) {
+				return math.Log(arg[0].(float64)), nil
 			},
-			"sin": func(arg float64) float64 {
-				return math.Sin(arg)
+			"sin": func(arg ...interface{}) (interface{}, error) {
+				return math.Sin(arg[0].(float64)), nil
 			},
-			"cos": func(arg float64) float64 {
-				return math.Cos(arg)
+			"cos": func(arg ...interface{}) (interface{}, error) {
+				return math.Cos(arg[0].(float64)), nil
 			},
-			"tan": func(arg float64) float64 {
-				return math.Tan(arg)
+			"tan": func(arg ...interface{}) (interface{}, error) {
+				return math.Tan(arg[0].(float64)), nil
 			},
-			"asin": func(arg float64) float64 {
-				return math.Asin(arg)
+			"asin": func(arg ...interface{}) (interface{}, error) {
+				return math.Asin(arg[0].(float64)), nil
 			},
-			"acos": func(arg float64) float64 {
-				return math.Acos(arg)
+			"acos": func(arg ...interface{}) (interface{}, error) {
+				return math.Acos(arg[0].(float64)), nil
 			},
-			"atan": func(arg float64) float64 {
-				return math.Atan(arg)
+			"atan": func(arg ...interface{}) (interface{}, error) {
+				return math.Atan(arg[0].(float64)), nil
 			},
-			"sinh": func(arg float64) float64 {
-				return math.Sinh(arg)
+			"sinh": func(arg ...interface{}) (interface{}, error) {
+				return math.Sinh(arg[0].(float64)), nil
 			},
-			"cosh": func(arg float64) float64 {
-				return math.Cosh(arg)
+			"cosh": func(arg ...interface{}) (interface{}, error) {
+				return math.Cosh(arg[0].(float64)), nil
 			},
-			"tanh": func(arg float64) float64 {
-				return math.Tanh(arg)
+			"tanh": func(arg ...interface{}) (interface{}, error) {
+				return math.Tanh(arg[0].(float64)), nil
 			},
-			"sqrt": func(arg float64) float64 {
-				return math.Sqrt(arg)
+			"sqrt": func(arg ...interface{}) (interface{}, error) {
+				return math.Sqrt(arg[0].(float64)), nil
 			},
-			"deg": func(arg float64) float64 {
-				return arg * DEG
+			"deg": func(arg ...interface{}) (interface{}, error) {
+				return arg[0].(float64) * DEG, nil
 			},
-			"rad": func(arg float64) float64 {
-				return arg * RAD
+			"rad": func(arg ...interface{}) (interface{}, error) {
+				return arg[0].(float64) * RAD, nil
 			},
-			"exp": func(arg float64) float64 {
-				return math.Exp(arg)
+			"exp": func(arg ...interface{}) (interface{}, error) {
+				return math.Exp(arg[0].(float64)), nil
 			},
 		}
 
@@ -129,7 +129,7 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 		parameter := make(map[string]interface{}, 1)
 		for j := 0; j <= t.steps; j++ {
 			parameter["x"] = x[j]
-			temp, _ := exp.Evaluate(parameter)
+			temp, _ := fn.Evaluate(parameter)
 			f_x[j] = temp.(float64)
 		}
 	} else {
