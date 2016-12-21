@@ -45,9 +45,7 @@ func (t TrapezoidIntegrator) stringHasFunctions() bool {
 		strings.Contains(t.expression, "sinh") ||
 		strings.Contains(t.expression, "cosh") ||
 		strings.Contains(t.expression, "tanh") ||
-		strings.Contains(t.expression, "deg") ||
 		strings.Contains(t.expression, "sqrt") ||
-		strings.Contains(t.expression, "rad") ||
 		strings.Contains(t.expression, "exp") {
 		return true
 	} else {
@@ -85,40 +83,34 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 				return math.Log(arg[0].(float64)), nil
 			},
 			"sin": func(arg ...interface{}) (interface{}, error) {
-				return math.Sin(arg[0].(float64)), nil
+				return math.Sin(arg[0].(float64)*RAD), nil
 			},
 			"cos": func(arg ...interface{}) (interface{}, error) {
-				return math.Cos(arg[0].(float64)), nil
+				return math.Cos(arg[0].(float64)*RAD), nil
 			},
 			"tan": func(arg ...interface{}) (interface{}, error) {
-				return math.Tan(arg[0].(float64)), nil
+				return math.Tan(arg[0].(float64)*RAD), nil
 			},
 			"asin": func(arg ...interface{}) (interface{}, error) {
-				return math.Asin(arg[0].(float64)), nil
+				return math.Asin(arg[0].(float64)*RAD), nil
 			},
 			"acos": func(arg ...interface{}) (interface{}, error) {
-				return math.Acos(arg[0].(float64)), nil
+				return math.Acos(arg[0].(float64)*RAD), nil
 			},
 			"atan": func(arg ...interface{}) (interface{}, error) {
-				return math.Atan(arg[0].(float64)), nil
+				return math.Atan(arg[0].(float64)*RAD), nil
 			},
 			"sinh": func(arg ...interface{}) (interface{}, error) {
-				return math.Sinh(arg[0].(float64)), nil
+				return math.Sinh(arg[0].(float64)*RAD), nil
 			},
 			"cosh": func(arg ...interface{}) (interface{}, error) {
-				return math.Cosh(arg[0].(float64)), nil
+				return math.Cosh(arg[0].(float64)*RAD), nil
 			},
 			"tanh": func(arg ...interface{}) (interface{}, error) {
-				return math.Tanh(arg[0].(float64)), nil
+				return math.Tanh(arg[0].(float64)*RAD), nil
 			},
 			"sqrt": func(arg ...interface{}) (interface{}, error) {
 				return math.Sqrt(arg[0].(float64)), nil
-			},
-			"deg": func(arg ...interface{}) (interface{}, error) {
-				return arg[0].(float64) * DEG, nil
-			},
-			"rad": func(arg ...interface{}) (interface{}, error) {
-				return arg[0].(float64) * RAD, nil
 			},
 			"exp": func(arg ...interface{}) (interface{}, error) {
 				return math.Exp(arg[0].(float64)), nil
