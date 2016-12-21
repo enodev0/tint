@@ -18,5 +18,5 @@ func main() {
 		*exp, *ll, *ul, *n)
 	a := integral.NewIntegrator(*n, *ll, *ul, *exp)
 	b := a.Run()
-	fmt.Printf("Result: %0.3f\n\n", b)
+	fmt.Printf("Result: %0.3f unit sq\n\n", b)
 }
