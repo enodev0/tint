@@ -143,7 +143,7 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 			temp, err := exp.Evaluate(parameter)
 			// the return type of exp.Evaluate() is interface{},
 			// not float64.
-			if err != nil { //FIXME: Need type assertions. Whats that?
+			if err != nil {
 				panic("Panic: FATAL: Expression evaluation error")
 			}
 			// What's the concrete type implementing the interface? Below.
