@@ -11,10 +11,6 @@ import (
 const (
 	DEG = (180.0 / math.Pi) //rad -> deg
 	RAD = (math.Pi / 180.0) //deg -> rad
-	/*RED    = "\033[31m"
-	GREEN  = "\033[32m"
-	YELLOW = "\033[33m"
-	RESET  = "\033[m"*/
 )
 
 type TrapezoidIntegrator struct {
@@ -53,19 +49,20 @@ func (t TrapezoidIntegrator) stringHasFunctions() bool {
 	}
 }
 
-// Tracktime courtesy stathat
 func timeTrack(start time.Time) {
 	elapsed := time.Since(start)
 	fmt.Printf("Runtime: %s\n", elapsed)
 }
 
-func (t TrapezoidIntegrator) Run() float64 { // return an error?
+func (t TrapezoidIntegrator) Run() float64 {
+	
 	defer timeTrack(time.Now())
 	delta := (t.upperLimit - t.lowerLimit) / (float64(t.steps))
-	x := make([]float64, t.steps+1)
+	x   := make([]float64, t.steps+1)
 	f_x := make([]float64, t.steps+1)
+	
+	
 	for i := 0; i <= t.steps; i++ {
-		//println(i, x[i])
 		if i > 0 {
 			x[i] = x[i-1] + delta
 		} else {
@@ -73,8 +70,9 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 		}
 	}
 
-	if t.stringHasFunctions() {
 	
+	if t.stringHasFunctions() {
+	//TODO: Re-implement the expression evaluator
 		functions := map[string]govaluate.ExpressionFunction {
 			"log": func(arg ...interface{}) (interface{}, error) {
 				return math.Log10(arg[0].(float64)), nil
@@ -126,31 +124,20 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 		}
 	} else {
 		exp, _ := govaluate.NewEvaluableExpression(t.expression)
-		// allocating only one, since we would be
-		// re-assigning to the same parameter
-		parameter := make(map[string]interface{}, 1) // govaluate mandate
-		// var err error
+		parameter := make(map[string]interface{}, 1) 
 		for j := 0; j <= t.steps; j++ {
-			//FIXME: The variable name must be the same as
-			// that in the expression.
-			// Here, I'm choosing "x" since it is the most common.
-			// Thus, integral of 1-x**1/2 will work,
-			//but 1-y**1/2 won't work,
-			// since the expectant variable name is hardcoded in.
-			// Refer to the README
-			// of the govaluate package for more information.
-			parameter["x"] = x[j] // here we go.
+			
+			parameter["x"] = x[j] 
 			temp, err := exp.Evaluate(parameter)
-			// the return type of exp.Evaluate() is interface{},
-			// not float64.
+			
 			if err != nil {
 				panic("Panic: FATAL: Expression evaluation error")
 			}
-			// What's the concrete type implementing the interface? Below.
-			f_x[j] = temp.(float64) // type assert interface{} to float
+			
+			f_x[j] = temp.(float64)
 		}
 	}
-	// calculate the sum
+	
 	sum := 0.0
 	for index, elem := range f_x {
 		if index == 0 || index == t.steps {
@@ -159,5 +146,5 @@ func (t TrapezoidIntegrator) Run() float64 { // return an error?
 			sum = sum + (2 * elem)
 		}
 	}
-	return (delta / 2) * sum // the integral
+	return (delta / 2) * sum
 }
