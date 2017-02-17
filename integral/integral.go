@@ -55,13 +55,13 @@ func timeTrack(start time.Time) {
 }
 
 func (t TrapezoidIntegrator) Run() float64 {
-	
+
 	defer timeTrack(time.Now())
 	delta := (t.upperLimit - t.lowerLimit) / (float64(t.steps))
 	x   := make([]float64, t.steps+1)
 	f_x := make([]float64, t.steps+1)
-	
-	
+
+
 	for i := 0; i <= t.steps; i++ {
 		if i > 0 {
 			x[i] = x[i-1] + delta
@@ -70,7 +70,7 @@ func (t TrapezoidIntegrator) Run() float64 {
 		}
 	}
 
-	
+
 	if t.stringHasFunctions() {
 	//TODO: Re-implement the expression evaluator
 		functions := map[string]govaluate.ExpressionFunction {
@@ -124,20 +124,20 @@ func (t TrapezoidIntegrator) Run() float64 {
 		}
 	} else {
 		exp, _ := govaluate.NewEvaluableExpression(t.expression)
-		parameter := make(map[string]interface{}, 1) 
+		parameter := make(map[string]interface{}, 1)
 		for j := 0; j <= t.steps; j++ {
-			
-			parameter["x"] = x[j] 
+
+			parameter["x"] = x[j]
+
 			temp, err := exp.Evaluate(parameter)
-			
 			if err != nil {
 				panic("Panic: FATAL: Expression evaluation error")
 			}
-			
+
 			f_x[j] = temp.(float64)
 		}
 	}
-	
+
 	sum := 0.0
 	for index, elem := range f_x {
 		if index == 0 || index == t.steps {

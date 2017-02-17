@@ -10,7 +10,7 @@ func main() {
 	n := flag.Int("n", 10, "No. of iteration")
 	ll := flag.Float64("ll", 0.0, "Lower limit")
 	ul := flag.Float64("ul", 0.0, "Upper limit")
-	exp := flag.String("fn", "", "Function to integrate")
+	exp := flag.String("fn", "x", "Function to integrate")
 
 	flag.Parse()
 
