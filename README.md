@@ -1,15 +1,19 @@
 # tint
 
-tint performs numerical integration using trapezium rule.
+tint performs numerical integration using trapezium rule. This is the single threaded version.
 
 ## Usage
 
 Suppose you want to integrate the function f(x) = sin(1/(1-(x**2))) from 0 to PI, you would do:
 ```bash
-$ tint -ll=0 -ul=3.14 -fn="sin(x)" -n=12000
+$ tintp -ll=0 -ul=3.14 -fn="sin(x)" -n=1200
 ```
-In the above case, we specified lower limit(ll) as 0, upper limit(ul) as 3.14, and the function to be 
-integrated(fn) as *sin(1/(1-(x**2)))*. Switch n specifies the number of quadrilaterals used to divide up and
-approximate the area under the curve. Default value for n is 10.
+where n = #trapezoids you want to use to calculate the integral.
 
-For something like f(x) = 7, n = 1 will suffice. 
+The greater the value of *n*, the more accurate but resource intensive the calculation will be.
+
+## Caveat
+
+* This is faster for comparatively simpler integrations on <=4 core machines with limited memory, compared to tintp.
+  
+* Using very high values of *n* may quickly deplete your system resources. Your machine may freeze. Exercise caution.
