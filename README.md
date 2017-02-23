@@ -6,7 +6,7 @@ tint performs numerical integration using trapezium rule. This is the single thr
 
 Suppose you want to integrate the function f(x) = sin(1/(1-(x**2))) from 0 to PI, you would do:
 ```bash
-$ tintp -ll=0 -ul=3.14 -fn="sin(x)" -n=1200
+$ tintp -ll=0 -ul=3.14 -fn="sin(1/(1-(x**2)))" -n=1200
 ```
 where n = #trapezoids you want to use to calculate the integral.
 
