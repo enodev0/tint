@@ -4,7 +4,7 @@ tint performs numerical integration using trapezium rule. This is the single thr
 
 ## Usage
 
-Suppose you want to integrate the function f(x) = sin(1/(1-(x**2))) from 0 to PI, you would do:
+Suppose you want to integrate the function f(x) = sin(1/(1-(x**2))) dx from 0 to PI, you would do:
 ```bash
 $ tint -ll=0 -ul=3.14 -fn="sin(1/(1-(x**2)))" -n=1200
 ```
