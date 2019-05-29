@@ -2,8 +2,8 @@ package integral
 
 import (
 	"fmt"
-        "github.com/schollz/progressbar"
 	"github.com/Knetic/govaluate"
+	"github.com/schollz/progressbar"
 	"math"
 	"strings"
 	"time"
@@ -57,15 +57,13 @@ func timeTrack(start time.Time) {
 
 func (t TrapezoidIntegrator) Run() float64 {
 
-        pb := progressbar.New(t.steps * 2)
-        pb.RenderBlank()
-
+	pb := progressbar.New(t.steps * 2)
+	pb.RenderBlank()
 
 	defer timeTrack(time.Now())
 	delta := (t.upperLimit - t.lowerLimit) / (float64(t.steps))
-	x   := make([]float64, t.steps+1)
+	x := make([]float64, t.steps+1)
 	f_x := make([]float64, t.steps+1)
-
 
 	for i := 0; i <= t.steps; i++ {
 		if i > 0 {
@@ -76,10 +74,9 @@ func (t TrapezoidIntegrator) Run() float64 {
 		pb.Add(1)
 	}
 
-
 	if t.stringHasFunctions() {
-	//TODO: Re-implement the expression evaluator
-		functions := map[string]govaluate.ExpressionFunction {
+		//TODO: Re-implement the expression evaluator
+		functions := map[string]govaluate.ExpressionFunction{
 			"log": func(arg ...interface{}) (interface{}, error) {
 				return math.Log10(arg[0].(float64)), nil
 			},
@@ -87,22 +84,22 @@ func (t TrapezoidIntegrator) Run() float64 {
 				return math.Log(arg[0].(float64)), nil
 			},
 			"sin": func(arg ...interface{}) (interface{}, error) {
-				return math.Sin(arg[0].(float64)*RAD), nil
+				return math.Sin(arg[0].(float64) * RAD), nil
 			},
 			"cos": func(arg ...interface{}) (interface{}, error) {
-				return math.Cos(arg[0].(float64)*RAD), nil
+				return math.Cos(arg[0].(float64) * RAD), nil
 			},
 			"tan": func(arg ...interface{}) (interface{}, error) {
-				return math.Tan(arg[0].(float64)*RAD), nil
+				return math.Tan(arg[0].(float64) * RAD), nil
 			},
 			"asin": func(arg ...interface{}) (interface{}, error) {
-				return math.Asin(arg[0].(float64)*DEG), nil
+				return math.Asin(arg[0].(float64) * DEG), nil
 			},
 			"acos": func(arg ...interface{}) (interface{}, error) {
-				return math.Acos(arg[0].(float64)*DEG), nil
+				return math.Acos(arg[0].(float64) * DEG), nil
 			},
 			"atan": func(arg ...interface{}) (interface{}, error) {
-				return math.Atan(arg[0].(float64)*DEG), nil
+				return math.Atan(arg[0].(float64) * DEG), nil
 			},
 			"sinh": func(arg ...interface{}) (interface{}, error) {
 				return math.Sinh(arg[0].(float64)), nil
@@ -127,7 +124,7 @@ func (t TrapezoidIntegrator) Run() float64 {
 			parameter["x"] = x[j]
 			temp, _ := fn.Evaluate(parameter)
 			f_x[j] = temp.(float64)
-                        pb.Add(1)
+			pb.Add(1)
 		}
 	} else {
 		exp, _ := govaluate.NewEvaluableExpression(t.expression)
@@ -142,7 +139,7 @@ func (t TrapezoidIntegrator) Run() float64 {
 			}
 
 			f_x[j] = temp.(float64)
-                        pb.Add(1)
+			pb.Add(1)
 		}
 	}
 
