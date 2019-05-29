@@ -2,6 +2,7 @@ package integral
 
 import (
 	"fmt"
+        "github.com/schollz/progressbar"
 	"github.com/Knetic/govaluate"
 	"math"
 	"strings"
@@ -56,6 +57,10 @@ func timeTrack(start time.Time) {
 
 func (t TrapezoidIntegrator) Run() float64 {
 
+        pb := progressbar.New(t.steps * 2)
+        pb.RenderBlank()
+
+
 	defer timeTrack(time.Now())
 	delta := (t.upperLimit - t.lowerLimit) / (float64(t.steps))
 	x   := make([]float64, t.steps+1)
@@ -68,6 +73,7 @@ func (t TrapezoidIntegrator) Run() float64 {
 		} else {
 			x[i] = t.lowerLimit
 		}
+		pb.Add(1)
 	}
 
 
@@ -121,6 +127,7 @@ func (t TrapezoidIntegrator) Run() float64 {
 			parameter["x"] = x[j]
 			temp, _ := fn.Evaluate(parameter)
 			f_x[j] = temp.(float64)
+                        pb.Add(1)
 		}
 	} else {
 		exp, _ := govaluate.NewEvaluableExpression(t.expression)
@@ -135,6 +142,7 @@ func (t TrapezoidIntegrator) Run() float64 {
 			}
 
 			f_x[j] = temp.(float64)
+                        pb.Add(1)
 		}
 	}
 
@@ -146,5 +154,6 @@ func (t TrapezoidIntegrator) Run() float64 {
 			sum = sum + (2 * elem)
 		}
 	}
+	println("\n") // just a newline after progressbar
 	return (delta / 2) * sum
 }
