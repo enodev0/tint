@@ -14,6 +14,4 @@ The greater the value of *n*, the more accurate but resource intensive the calcu
 
 ## Caveat
 
-* This is faster for comparatively simpler integrations on <=4 core machines with limited memory, compared to tintp.
-  
-* Using very high values of *n* may quickly deplete your system resources. Your machine may freeze. Exercise caution.
+Using very high values of *n* may quickly deplete your system resources. Your machine may freeze. Exercise caution.
